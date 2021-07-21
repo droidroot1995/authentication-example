@@ -1,0 +1,172 @@
+openapi: 3.0.3
+servers:
+  - url: http://localhost:8080/api
+info:
+  description: Authentication example API
+  version: "1.0.0"
+  title: Authentication example API
+tags:
+  - name: user
+    description: Operations with user info
+paths:
+  /register:
+    post:
+      tags:
+        - user
+      summary: Create user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createUserRequest'
+      responses:
+        200:
+          description: User was created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createUserResponse'
+
+  /login:
+    post:
+      tags:
+        - user
+      summary: Authorize user
+      operationId: authUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authUserRequest'
+      responses:
+        200:
+          description: User was authorized successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authUserResponse'
+        403:
+          description: Incorrect credentials
+
+  /{login}:
+    get:
+      tags:
+        - user
+      summary: Get user info
+      operationId: getUserInfoRequest
+      parameters:
+        - in: path
+          name: login
+          required: true
+          schema:
+            $ref: string
+      responses:
+        200:
+          description: User info got successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getUserInfoResponse'
+
+    put:
+      tags:
+        - user
+      summary: Update user info
+      operationId: updateUserRequest
+      parameters:
+        - in: path
+          name: login
+          required: true
+          schema:
+            $ref: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateUserRequest'
+
+      responses:
+        200:
+          description: User was updated successfully
+
+    delete:
+      tags:
+        - user
+      summary: Delete user
+      operationId: deleteUserRequest
+      parameters:
+        - in: path
+          name: login
+          required: true
+          schema:
+            $ref: string
+
+      responses:
+        200:
+          description: User was deleted successfully
+
+
+components:
+  schemas:
+    authUserRequest:
+      type: object
+      required:
+        - login
+        - password
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+    authUserResponse:
+       type: object
+       required:
+         - authToken
+       properties:
+         authToken:
+           type: string
+
+    createUserRequest:
+      type: object
+      required:
+        - login
+        - password
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+    createUserResponse:
+      type: object
+      required:
+        - login
+      properties:
+        login:
+          type: string
+
+    getUserInfoResponse:
+      type: object
+      required:
+        - uuid
+        - login
+        - password
+      properties:
+        uuid:
+          type: string
+        login:
+          type: string
+        password:
+          type: string
+
+    updateUserRequest:
+      type: object
+      required:
+        - password
+      properties:
+        password:
+          type: string

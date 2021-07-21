@@ -1,0 +1,24 @@
+---
+authentication.router:
+  advertise_uri: localhost:3301
+  http_port: 8081
+
+authentication.s1-master:
+  advertise_uri: localhost:3302
+  http_port: 8082
+
+authentication.s1-replica:
+  advertise_uri: localhost:3303
+  http_port: 8083
+
+authentication.s2-master:
+  advertise_uri: localhost:3304
+  http_port: 8084
+
+authentication.s2-replica:
+  advertise_uri: localhost:3305
+  http_port: 8085
+
+authentication-stateboard:
+  listen: localhost:4401
+  password: passwd
