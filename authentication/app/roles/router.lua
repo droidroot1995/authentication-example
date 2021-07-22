@@ -23,10 +23,6 @@ function get_user_by_login(login)
 
     local user = vshard.router.callbro(bucket_id, 'box.space.user_info:get', {login})
 
-    if user == nil then
-        return nil
-    end
-
     return user
 end
 
